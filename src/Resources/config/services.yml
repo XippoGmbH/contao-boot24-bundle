@@ -1,0 +1,18 @@
+services:
+    _instanceof:
+        Contao\CoreBundle\Framework\FrameworkAwareInterface:
+            calls:
+                - ["setFramework", ["@contao.framework"]]
+
+        Symfony\Component\DependencyInjection\ContainerAwareInterface:
+            calls:
+                - ["setContainer", ["@service_container"]]
+    # Contao content element XippoGmbH\Boot24Bundle\Controller\Boot24Controller
+    XippoGmbH\Boot24Bundle\Controller\Boot24Controller:
+        arguments:
+            - '@contao.framework'
+        tags:
+            - { name: contao.content_element, category: xippo_elements, template: ce_boot24, type: xippo_boot24 }
+            - { name: container.service_subscriber }
+        public: true
+    

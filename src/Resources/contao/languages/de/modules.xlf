@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/de/modules.php" source-language="de">
+    <body>
+      <trans-unit id="MOD.maps.0">
+        <source>Maps</source>
+      </trans-unit>
+      <trans-unit id="MOD.maps.1">
+        <source>Karten verwaltung</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
