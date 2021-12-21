@@ -1,0 +1,34 @@
+<!-- contao/templates/ce_boot24.html5 -->
+<!-- indexer::stop -->
+
+<div class="container">
+	<?php foreach ($this->adds as $add): ?>
+		<div class="card flex-row flex-wrap">
+			<div class="card-header border-0">
+				<img src="<?php echo $add['foto']['content']; ?>" alt="">
+			</div>
+			<div class="card-block px-2">
+				<h4 class="card-title"><?php echo htmlspecialchars($add['title']['content']); ?></h4>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th scope="row"><?php echo htmlspecialchars($add['manufacturer']['label']); ?>:</th>
+							<td><?php echo htmlspecialchars($add['manufacturer']['content']); ?></td>
+						</tr>
+						<tr>
+							<th scope="row"><?php echo htmlspecialchars($add['model']['label']); ?></th>
+							<td><?php echo htmlspecialchars($add['model']['content']); ?></td>
+						</tr>
+						<tr>
+							<th scope="row"><?php echo htmlspecialchars($add['model']['label']); ?></th>
+							<td><?php echo htmlspecialchars($add['model']['content']); ?></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="w-100"></div>
+		</div>
+	<?php endforeach; ?>
+</div>
+
+<!-- indexer::continue -->

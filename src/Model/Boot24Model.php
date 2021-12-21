@@ -18,5 +18,4 @@ use Contao\Model;
 
 class Boot24Model extends Model
 {
-    protected static $strTable = 'tl_xippo_boot24';
 }

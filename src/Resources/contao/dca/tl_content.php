@@ -12,15 +12,16 @@
  *
  */
 
-if($this->Input->get('do') == 'xippo_boot24')
-$GLOBALS['TL_DCA']['tl_content']['fields']['content_boot24'] = [
-			'label' => &$GLOBALS['TL_LANG']['tl_content']['content_boot24'],
-			'inputType' => 'select',
-			'foreignKey' => 'tl_xippo_boot24.title',
-			'sql' => ['type' => 'integer', 'unsigned' => true, 'notnull' => true, 'default' => 0],
-			'eval' => [
-				'mandatory' => true,
-				'includeBlankOption' => true
-			]
+$GLOBALS['TL_DCA']['tl_content']['fields']['boot24_token'] = [
+			'label' => &$GLOBALS['TL_LANG']['tl_content']['boot24_url'],
+			'inputType' => 'text',
+			'eval' => ['tl_class' => 'w50', 'maxlength' => 33],
+    		'sql' => ['type' => 'string', 'length' => 33, 'default' => '']
 		];
-$GLOBALS['TL_DCA']['tl_content']['palettes']['xippo_boot24'] = '{type_legend},type,headline;{maps_legend},content_boot24;{protected_legend:hide},protected;{expert_legend:hide},guests,invisible,cssID,space;';
+$GLOBALS['TL_DCA']['tl_content']['fields']['boot24_lang'] = [
+			'label' => &$GLOBALS['TL_LANG']['tl_content']['boot24_url'],
+			'inputType' => 'text',
+			'eval' => ['tl_class' => 'w50', 'maxlength' => 2],
+    		'sql' => ['type' => 'string', 'length' => 2, 'default' => '']
+		];
+$GLOBALS['TL_DCA']['tl_content']['palettes']['xippo_boot24'] = '{type_legend},type,headline;{boot24_legend},boot24_url,boot24_lang;{protected_legend:hide},protected;{expert_legend:hide},guests,invisible,cssID,space;';

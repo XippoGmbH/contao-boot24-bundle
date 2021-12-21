@@ -1,12 +1,14 @@
 services:
-    _instanceof:
-        Contao\CoreBundle\Framework\FrameworkAwareInterface:
-            calls:
-                - ["setFramework", ["@contao.framework"]]
+    _defaults:
+        autoconfigure: true
+    #_instanceof:
+    #    Contao\CoreBundle\Framework\FrameworkAwareInterface:
+    #        calls:
+    #            - ["setFramework", ["@contao.framework"]]
 
-        Symfony\Component\DependencyInjection\ContainerAwareInterface:
-            calls:
-                - ["setContainer", ["@service_container"]]
+    #    Symfony\Component\DependencyInjection\ContainerAwareInterface:
+    #        calls:
+    #            - ["setContainer", ["@service_container"]]
     # Contao content element XippoGmbH\Boot24Bundle\Controller\Boot24Controller
     XippoGmbH\Boot24Bundle\Controller\Boot24Controller:
         arguments:

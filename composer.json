@@ -2,6 +2,7 @@
     "name": "xippogmbh/boot24-bundle",
     "type": "contao-bundle",
     "description": "OSM Bundle for contao 4",
+	"version": "v0.1.16",
     "homepage": "https://github.com/xippoGmbH/contao-boot24-bundle",
     "license": "LGPL-3.0-or-later",
     "authors": [
@@ -15,13 +16,9 @@
         }
     ],
     "require": {
-        "php": "^7.0",
-        "contao/core-bundle": "^4.9",
-        "symfony/framework-bundle": "^4"
-    },
-    "conflict": {
-        "contao/core": "*",
-        "contao/manager-plugin": "<2.0 || >=3.0"
+        "php": "^7.0 | ^8.0",
+        "contao/core-bundle": "^4.11",
+        "symfony/framework-bundle": "^4.4 | ^5.0"
     },
     "require-dev": {
         "contao/manager-plugin": "^2.0",

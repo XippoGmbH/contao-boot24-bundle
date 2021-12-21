@@ -676,7 +676,7 @@ class Boot24Controller extends AbstractContentElementController
 			
 		$xml = $this->loadFile($url);
 
-		$doc = new DomDocument();
+		$doc = new \DomDocument();
 		if(@$doc->loadXml($xml)==false) $this->error('unable to parse XML '.$url);
 		else
 		{
@@ -783,85 +783,13 @@ class Boot24Controller extends AbstractContentElementController
 		
 		return $str;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
     protected function getResponse(Template $template, ContentModel $model, Request $request): ?Response
     {
-		$maps = Boot24Model::findBy('id', $model->content_boot24);
+		$this->token = $model->boot24_token;
+		$this->language = $model->boot24_lang;
 
-		if (!$maps instanceof Boot24Model) {
-            return $template->getResponse();
-        }
-
-		\System::log('Maps gefunden, die ID ist: ' . $maps->id, __METHOD__, TL_GENERAL);
-
-		$tempMapsMarkers = MapsMarkerModel::findBy('pid', $maps->id);
-
-		$maps->mapsMarkerCount = count($tempMapsMarkers);
-		$maps->mapHeight = \StringUtil::deserialize($maps->height);
-		$maps->mapWidth = \StringUtil::deserialize($maps->width);
-
-		$template->maps = $maps;
-        $mapsMarkers = [];
-
-		if($tempMapsMarkers->count() > 0)
-		{
-			foreach($tempMapsMarkers as $tempMapsMarker)
-			{
-				\System::log('Maps Item ID: ' . $tempMapsMarker->id, __METHOD__, TL_GENERAL);
-
-                $elements = [];
-
-				$content = ContentModel::findPublishedByPidAndTable($tempMapsMarker->id, 'tl_xippo_boot24_marker');
-
-				if (null !== $content) {
-					$count = 0;
-					$last = $content->count() - 1;
-
-					while ($content->next()) {
-						$css = [];
-
-						/** @var ContentModel $objRow */
-						$row = $content->current();
-
-						if (0 === $count) {
-							$css[] = 'first';
-						}
-
-						if ($count === $last) {
-							$css[] = 'last';
-						}
-
-						$row->classes = $css;
-						$elements[] = Frontend::getContentElement($row, $model->strColumn);
-						++$count;
-					}
-				}
-
-				$tempMapsMarker->content = $elements;
-
-				$mapsMarkers[] = $tempMapsMarker;
-			}
-		}
-
-		$template->mapsMarkers = $mapsMarkers;
+		$template->adds = $this->getFormattedAds();
 
         return $template->getResponse();
     }
