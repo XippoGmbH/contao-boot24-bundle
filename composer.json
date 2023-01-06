@@ -2,7 +2,7 @@
     "name": "xippogmbh/boot24-bundle",
     "type": "contao-bundle",
     "description": "OSM Bundle for contao 4",
-	"version": "v0.1.16",
+	"version": "v0.1.35",
     "homepage": "https://github.com/xippoGmbH/contao-boot24-bundle",
     "license": "LGPL-3.0-or-later",
     "authors": [

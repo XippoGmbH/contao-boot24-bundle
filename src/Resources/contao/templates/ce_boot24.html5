@@ -1,34 +1,55 @@
 <!-- contao/templates/ce_boot24.html5 -->
-<!-- indexer::stop -->
-
 <div class="container">
-	<?php foreach ($this->adds as $add): ?>
-		<div class="card flex-row flex-wrap">
-			<div class="card-header border-0">
-				<img src="<?php echo $add['foto']['content']; ?>" alt="">
+		<?php if($this->isDetail) { ?>
+		<div class="boat_detail">
+			<div class="row">
+				<div class="col">
+					<?php echo $this->boot_detail_title; ?>
+				</div>
 			</div>
-			<div class="card-block px-2">
-				<h4 class="card-title"><?php echo htmlspecialchars($add['title']['content']); ?></h4>
-				<table class="table">
-					<tbody>
-						<tr>
-							<th scope="row"><?php echo htmlspecialchars($add['manufacturer']['label']); ?>:</th>
-							<td><?php echo htmlspecialchars($add['manufacturer']['content']); ?></td>
-						</tr>
-						<tr>
-							<th scope="row"><?php echo htmlspecialchars($add['model']['label']); ?></th>
-							<td><?php echo htmlspecialchars($add['model']['content']); ?></td>
-						</tr>
-						<tr>
-							<th scope="row"><?php echo htmlspecialchars($add['model']['label']); ?></th>
-							<td><?php echo htmlspecialchars($add['model']['content']); ?></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="w-100"></div>
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="row">
+						<div class="col-lg-12">
+							<?php echo $this->boot_detail_top; ?>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<?php echo $this->boot_detail_features1; ?>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<?php echo $this->boot_detail_features2; ?>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<?php echo $this->boot_detail_features3; ?>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<?php echo $this->boot_detail_features4; ?>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<?php echo $this->boot_detail_features5; ?>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<?php echo $this->boot_detail_images; ?>
+				</div>
 		</div>
-	<?php endforeach; ?>
+		<div class="row">
+						<div class="col-lg-12">
+							<?php echo $this->boot_detail_features6; ?>
+						</div>
+					</div>
+		<?php } else { ?>
+			<?php echo $this->boots; ?>
+		<?php } ?>
 </div>
-
-<!-- indexer::continue -->
