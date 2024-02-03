@@ -69,6 +69,88 @@ class Boot24Controller extends AbstractContentElementController
 		return $var;
 	}
 	
+	private function getBooteXml()
+	{
+		$uri = "https://api.boatvertizer.com/rest?method=boatvertizer.formatted.ads&lan=de&token=" . $this->keyString;
+		
+		$tmp_doc = new \DOMDocument();
+		$tmp_doc->loadHTMLFile($uri);
+		
+		$var = '<div class="boot_list">';
+		
+		foreach($tmp_doc->getElementsByTagName('ad') as $ad)
+		{
+			if($ad->getAttribute('type') == 'sale') {
+				$id = $ad->getAttribute('id');
+				$title = "";
+				$subtitle = "";
+				$asking_price = 0;
+				$new_or_used = "";
+				$boat_category = "";$
+				$boat_type = "";
+				$manufacturer = "";
+				$model = "";
+				$built_year = "";
+				$length = "";
+				$width = "";
+				$foto = "";
+				
+				foreach($ad->getElementsByTagName('field') as $field) {
+					($field->getAttribute('id') == 'title' ? $title = $field->nodeValue : "");
+					($field->getAttribute('id') == 'subtitle' ? $subtitle = $field->nodeValue : "");
+					($field->getAttribute('id') == 'asking_price' ? $asking_price = $field->nodeValue : "");
+					($field->getAttribute('id') == 'new_or_used' ? $new_or_used = $field->nodeValue : "");
+					($field->getAttribute('id') == 'boat_category' ? $boat_category = $field->nodeValue : "");
+					($field->getAttribute('id') == 'boat_type' ? $boat_type = $field->nodeValue : "");
+					($field->getAttribute('id') == 'manufacturer' ? $manufacturer = $field->nodeValue : "");
+					($field->getAttribute('id') == 'model' ? $model = $field->nodeValue : "");
+					($field->getAttribute('id') == 'built_year' ? $built_year = $field->nodeValue : "");
+					($field->getAttribute('id') == 'length' ? $length = $field->nodeValue : "");
+					($field->getAttribute('id') == 'width' ? $width = $field->nodeValue : "");
+					($field->getAttribute('id') == 'foto' ? $foto = $field->nodeValue : "");
+				}
+				
+				$show = false;
+				
+				$foto = str_replace('-thumbnail.', '-medium.', $foto);
+				
+				$boot = '<div class="row">';
+				$boot .= '<div class="col-lg-2"><img src="'. $foto .'" alt="'.$title.'"></div>';
+				$boot .= '<div class="col-lg-7 text-start">';
+				$boot .= '<h4>'.$title.'</h4>';
+				$boot .= '<p>Preis: '.$asking_price.' <br>';
+				$boot .= 'Länge: '.$length.'<br>';
+				$boot .= 'Breite: '.$width.'</p>';
+				$boot .= '</div>';
+				$boot .= '<div class="col-lg-3 text-end detail_button"><div class="button_blue" style="height: 54.4px; clip-path: polygon(8.06422% 0%, 100% 0%, 91.9358% 100%, 0% 100%); position: relative;"><a href="boot-details.html?detail='.$id.'">mehr erfahren</a></div>';
+				$boot .= '</div>';
+				$boot .= '</div>';
+				
+				if(str_contains(strtolower($new_or_used), strtolower($this->newOrUsed))) {
+					$show = true;
+					if(str_contains(strtolower($boat_category), strtolower($this->boatCat))) {
+						$show = true;
+						if(str_contains(strtolower($this->manufacturer), strtolower($manufacturer)) || strlen($this->manufacturer) == 0) {
+							$show = true;
+						} else {
+							$show = false;
+						}
+					} else {
+						$show = false;
+					}
+				}
+				
+				if($show) {
+					$var .= $boot;
+				}
+			}
+		}
+		
+		$var .= '</div>';
+		
+		return $var;
+	}
+	
 	private function getBootDetailTitle(int $id)
 	{
 		$uri = "http://www.boatvertizer.com/dealer/" . $this->keyString . ".html?detail=" . $id;
@@ -200,10 +282,10 @@ class Boot24Controller extends AbstractContentElementController
 
     protected function getResponse(Template $template, ContentModel $model, Request $request): ?Response
     {
-		$this->keyString = $model->boot24_token;
-		$this->boatCat = $model->boot24_categorie;
-		$this->manufacturer = $model->boot24_manufacturer;
-		$this->newOrUsed = $model->boot24_newOrUsed;
+		$this->keyString = trim($model->boot24_token);
+		$this->boatCat = trim($model->boot24_categorie);
+		$this->manufacturer = trim($model->boot24_manufacturer);
+		$this->newOrUsed = trim($model->boot24_newOrUsed);
 		
 		if($request->query->get('detail') > 0)
 		{
@@ -219,7 +301,11 @@ class Boot24Controller extends AbstractContentElementController
 			$template->boot_detail_features6 = $this->getBootDetailFeatures(intval($request->query->get('detail')), 6);
 		} else {
 			$this->isDetail = false;
-			$template->boots = $this->getBoote();
+			if(strlen($this->keyString) > 9) {
+				$template->boots = $this->getBooteXml();
+			} else {
+				$template->boots = $this->getBoote();
+			}
 		}
 		
 		$template->isDetail = $this->isDetail;

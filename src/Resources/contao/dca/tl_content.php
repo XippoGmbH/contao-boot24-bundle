@@ -15,8 +15,8 @@
 $GLOBALS['TL_DCA']['tl_content']['fields']['boot24_token'] = [
 			'label' => &$GLOBALS['TL_LANG']['tl_content']['boot24_token'],
 			'inputType' => 'text',
-			'eval' => ['tl_class' => 'w50', 'maxlength' => 10],
-    		'sql' => ['type' => 'string', 'length' => 10, 'default' => '']
+			'eval' => ['tl_class' => 'w50', 'maxlength' => 35],
+    		'sql' => ['type' => 'string', 'length' => 35, 'default' => '']
 		];
 $GLOBALS['TL_DCA']['tl_content']['fields']['boot24_categorie'] = [
 			'label' => &$GLOBALS['TL_LANG']['tl_content']['boot24_categorie'],
